@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -17,6 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +60,28 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function roles() {
+        return $this->belongsToMany(Role::class, "user_roles");
+    }
+
+        /**
+     * Checks if User has access to $permissions.
+     */
+    public function hasAccess(array $permissions) : bool
+    {
+        foreach ($this->roles as $role) {
+            if ($role->hasAccess($permissions)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Checks if the user belongs to role.
+     */
+    public function inRole(string $roleSlug)
+    {
+        return $this->roles()->where('slug', $roleSlug)->count() == 1;
+    }
 }
