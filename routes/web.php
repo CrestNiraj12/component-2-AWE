@@ -24,9 +24,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->group(['prefix' => 'admin'], function () {
-    Route::group(['prefix' => 'products'], function () {
-        Route::group(['prefix' => 'categories'], function () {
+Route::middleware(['auth:sanctum', 'verified'])->prefix("admin")->group(function () {
+    Route::prefix("products")->group(function () {
+        Route::prefix("categories")->group(function () {
             Route::get('/', [ProductCategoryController::class, 'index']);
             Route::get('add', [ProductCategoryController::class, 'showAddPage'])->name('productCategories.storePage')->middleware('can:create-product-category');
             Route::post('/', [ProductCategoryController::class, 'store'])->name('productCategories.store')->middleware('can:create-product-category');
@@ -42,14 +42,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(['prefix' => 'admin'], fu
         Route::post('{product}/edit', [ProductController::class, 'showEditPage'])->name('products.updatePage')->middleware('can:update-product');
         Route::delete('{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('can:delete-product');
     });
-    
-    Route::group(['prefix' => 'users'], function () {
-        Route::get('/', [UserController::class, 'index']);
-        Route::get('{user}', [UserController::class, 'show'])->name('users.show')->middleware('can:view-user');
-        Route::get('add', [UserController::class, 'showAddPage'])->name('users.storePage')->middleware('can:create-user');
-        Route::post('/', [UserController::class, 'store'])->name('users.store')->middleware('can:create-user');
-        Route::put('{user}', [UserController::class, 'update'])->name('users.update')->middleware('can:update-user');
-        Route::post('{user}/edit', [UserController::class, 'showEditPage'])->name('users.updatePage')->middleware('can:update-user');
-        Route::delete('{user}', [UserController::class, 'destroy'])->name('users.destroy')->middleware('can:delete-user');
+
+    Route::prefix("users")->group(function () {
+        Route::get('/', [UserControlController::class, 'index']);
+        Route::get('{user}', [UserControlController::class, 'show'])->name('users.show')->middleware('can:view-user');
+        Route::get('add', [UserControlController::class, 'showAddPage'])->name('users.storePage')->middleware('can:create-user');
+        Route::post('/', [UserControlController::class, 'store'])->name('users.store')->middleware('can:create-user');
+        Route::put('{user}', [UserControlController::class, 'update'])->name('users.update')->middleware('can:update-user');
+        Route::post('{user}/edit', [UserControlController::class, 'showEditPage'])->name('users.updatePage')->middleware('can:update-user');
+        Route::delete('{user}', [UserControlController::class, 'destroy'])->name('users.destroy')->middleware('can:delete-user');
     });
 });
