@@ -23,14 +23,16 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $category = ProductCategory::inRandomOrder()->first();
+
         return [
             "title" => $this->faker->text(50),
             "description" => $this->faker->paragraph(),
-            "image" => "https://picsum.photos/640/480",
+            "image" => $this->faker->unique()->imageUrl(640, 480, $category->title),
             "price" => $this->faker->randomDigit(),
             "units" => $this->faker->randomDigit(),
             "data" => $this->faker->numberBetween(45, 200),
-            "product_category_id" => ProductCategory::inRandomOrder()->first()->id,
+            "product_category_id" => $category->id,
             "user_id" => User::whereHas("roles", function ($q) {
                 $q->whereJsonContains("permissions->create-product", true);
             })->inRandomOrder()->first()->id

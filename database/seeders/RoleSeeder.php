@@ -19,21 +19,11 @@ class RoleSeeder extends Seeder
             'slug' => 'customer'
         ]);
 
-        $trader = Role::create([
-            'name' => 'Trader',
-            'slug' => 'trader',
-            'permissions' => [
-                'create-product' => true,
-                'update-product' => true,
-                'delete-product' => true,
-                'view-product' => true
-            ]
-        ]);
-
         $admin = Role::create([
             'name' => 'Admin',
             'slug' => 'admin',
             'permissions' => [
+                'create-product' => true,
                 'update-product' => true,
                 'delete-product' => true,
                 'view-product' => true

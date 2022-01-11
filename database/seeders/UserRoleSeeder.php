@@ -16,7 +16,7 @@ class UserRoleSeeder extends Seeder
     {
         $user = UserRole::create([
             'user_id' => 1,
-            'role_id' => 3,
+            'role_id' => 2,
         ]);
 
         $user = UserRole::create([
@@ -26,7 +26,7 @@ class UserRoleSeeder extends Seeder
 
         $user = UserRole::create([
             'user_id' => 3,
-            'role_id' => 2,
+            'role_id' => 1,
         ]);
 
         $user = UserRole::create([
