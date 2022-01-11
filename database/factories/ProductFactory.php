@@ -28,7 +28,7 @@ class ProductFactory extends Factory
         return [
             "title" => $this->faker->text(50),
             "description" => $this->faker->paragraph(),
-            "image" => $this->faker->unique()->imageUrl(640, 480, $category->title),
+            "image" => $category->image,
             "price" => $this->faker->randomDigit(),
             "units" => $this->faker->randomDigit(),
             "data" => $this->faker->numberBetween(45, 200),
