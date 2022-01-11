@@ -1,7 +1,11 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+        <div class="navbar">
+            <a class="navbar-brand" href="/"><h2 style="color: #1e1e1e;text-transform: uppercase;
+                font-size: 24px;
+                font-weight: 700;">Sasto <em style="color: #f33f3f; font-style: normal">Store</em></h2></a>
+        </div>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />

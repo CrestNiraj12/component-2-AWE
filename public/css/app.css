@@ -1011,6 +1011,10 @@ select {
   margin-left: auto;
   margin-right: auto;
 }
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -1103,6 +1107,9 @@ select {
 }
 .inline-flex {
   display: inline-flex;
+}
+.table {
+  display: table;
 }
 .grid {
   display: grid;
@@ -1565,6 +1572,9 @@ select {
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pl-20 {
+  padding-left: 5rem;
 }
 .text-left {
   text-align: left;

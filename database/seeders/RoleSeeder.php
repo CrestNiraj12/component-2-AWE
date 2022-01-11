@@ -26,7 +26,8 @@ class RoleSeeder extends Seeder
                 'create-product' => true,
                 'update-product' => true,
                 'delete-product' => true,
-                'view-product' => true
+                'view-product' => true,
+                'access-dashboard' => true
             ]
         ]);
     }

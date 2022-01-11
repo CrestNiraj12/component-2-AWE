@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::with("category")->find($id);
-        return view("admin.products.product", ['page_title' => 'Product', 'product' => $product]);
+        return view("pages.product", ['page_title' => 'Product', 'product' => $product]);
     }
 
     public function store(Request $request)

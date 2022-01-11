@@ -29,7 +29,7 @@ class ProductFactory extends Factory
             "title" => $this->faker->text(50),
             "description" => $this->faker->paragraph(),
             "image" => $category->image,
-            "price" => $this->faker->randomDigit(),
+            "price" => $this->faker->numberBetween(10, 100),
             "units" => $this->faker->randomDigit(),
             "data" => $this->faker->numberBetween(45, 200),
             "product_category_id" => $category->id,

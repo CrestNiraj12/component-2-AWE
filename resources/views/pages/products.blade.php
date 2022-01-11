@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <div class="text-content">
             <h4>new arrivals</h4>
-            <h2>sixteen products</h2>
+            <h2>sasto products</h2>
           </div>
         </div>
       </div>
@@ -58,9 +58,9 @@
                   @foreach ($paginator->items() as $product)
                   <div class="col-lg-4 col-md-4 all {{ strtolower($product->category->title) }}">
                     <div class="product-item">
-                      <a href="#"><img src="{{ $product->category->image  }}" alt="{{ $product->title }}"></a>
+                      <a href="{{ "/products/" . $product->id }}"><img src="{{ $product->category->image  }}" alt="{{ $product->title }}"></a>
                       <div class="down-content">
-                        <a href="#"><h4>{{ $product->title }}</h4></a>
+                        <a href="{{ "/products/" . $product->id }}"><h4>{{ $product->title }}</h4></a>
                         <h6>${{ $product->price }}</h6>
                         <p>{{ $product->description }}</p>
                         <ul class="stars">

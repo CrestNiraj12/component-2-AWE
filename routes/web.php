@@ -26,6 +26,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/admin/dashboard', functio
 Route::get('/', [HomeController::class, "index"]);
 Route::get('/products', [ProductsController::class, "index"]);
 Route::get('/products/search', [ProductsController::class, "searchProducts"])->name("search");
+Route::view('/about', "pages.about");
+Route::view('/contact', "pages.contact");
+Route::get('/products/{id}', [ProductController::class, "show"]);
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix("admin")->group(function () {
     Route::prefix("products")->group(function () {
