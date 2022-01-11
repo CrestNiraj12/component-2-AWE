@@ -637,6 +637,17 @@ footer .inner-content p a {
     max-width: 250px;
 }
 
+.products .filters .select-group {
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-width: 250px;
+}
+
+.products .filters .select-group select {
+    font-size: 14px;
+}
+
 @media screen and (max-width: 1200px) {
     .products .filters .input-group {
         position: absolute;
