@@ -5,8 +5,10 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                    <a href="/">
+                        <h2 style="color: #1e1e1e;text-transform: uppercase;
+                            font-size: 24px;
+                            font-weight: 700;">Sasto <em style="color: #f33f3f; font-style: normal">Store</em></h2></a>
                     </a>
                 </div>
 
@@ -14,6 +16,12 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('productCategory') }}" :active="request()->routeIs('productCategory')">
+                        {{ __('Product Categories') }}
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+                        {{ __('Products') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -140,6 +148,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('productCategory') }}" :active="request()->routeIs('productCategory')">
+                {{ __('Product Categories') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+                {{ __('Products') }}
             </x-jet-responsive-nav-link>
         </div>
 

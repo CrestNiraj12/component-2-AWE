@@ -17,8 +17,11 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src={{ asset("vendor/jquery/jquery.min.js") }}></script>
+
     </head>
     <body class="font-sans antialiased">
+        @include('sweetalert::alert')
         @include("components.preloader")
         <x-jet-banner />
 

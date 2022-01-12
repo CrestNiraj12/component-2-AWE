@@ -17,6 +17,7 @@ class CreateProductCategoriesTable extends Migration
             $table->id();
             $table->string("title");
             $table->string("image")->nullable();
+            $table->string("data_type");
             $table->timestamps();
         });
     }

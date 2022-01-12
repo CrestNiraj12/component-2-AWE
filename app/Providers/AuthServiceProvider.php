@@ -30,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerProductCategoryPolicies();
         $this->registerProductPolicies();
         $this->registerUserPolicies();
+        $this->registerCustomerPolicies();
     }
 
     public function registerAdminPolicies()
@@ -67,10 +68,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete-product', function ($user, Product $product) {
             return $user->hasAccess(['delete-product']) or $user->id == $product->user_id;
         });
-
-        Gate::define('view-product', function ($user, Product $product) {
-            return $user->hasAccess(['view-product']) or $user->id == $product->user_id;
-        });
     }
 
     public function registerUserPolicies()
@@ -89,6 +86,12 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('view-user', function ($curr_user, User $user) {
             return $curr_user->hasAccess(['view-user']);
+        });
+    }
+
+    public function registerCustomerPolicies() {
+        Gate::define('review-product', function ($user) {
+            return $user->hasAccess(['review-product']);
         });
     }
 }

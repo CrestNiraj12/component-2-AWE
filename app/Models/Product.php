@@ -24,4 +24,21 @@ class Product extends Model
     public function category() {
         return $this->belongsTo(ProductCategory::class, "product_category_id");
     }
+
+    public function reviewed_by_users() {
+        return $this->belongsToMany(User::class, "user_reviews_products")->withPivot('rating', 'comment', 'created_at');
+    }
+
+    public function get_avg_rating() {
+        $ratings = UserReviewsProducts::where("product_id", $this->id)->pluck("rating");
+        $avg_rating = 0;
+        if ($ratings->count() > 0)
+            $avg_rating = round($ratings->sum() / $ratings->count());
+        return $avg_rating;
+    }
+
+    public function get_review_count() {
+        $count = UserReviewsProducts::where("product_id", $this->id)->get()->count();
+        return $count;
+    }
 }

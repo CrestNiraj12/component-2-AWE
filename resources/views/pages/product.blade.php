@@ -22,10 +22,13 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <div class="product-single__meta">
-                        <h1 class="product-single__title">{{ $product->title }}</h1>
+                        <h1>{{ $product->title }}</h1>
                         <div class="prInfoRow">
                             <div class="product-stock"> @if ($product->units > 0) <span class="instock ">In Stock</span> @else <span class="outstock hide">Unavailable</span> @endif </div>
-                            <div class="product-review"><a class="reviewLink" href="#tab2"><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star-o"></i><i class="font-13 fa fa-star-o"></i><span class="spr-badge-caption">6 reviews</span></a></div>
+                            <div class="product-review">
+                                <a class="reviewLink" href="#tab2">
+                                    @include("components.product.avg-rating")
+                                    <span class="spr-badge-caption">{{ count($product->reviewed_by_users) }} reviews</span></a></div>
                         </div>
                         <p class="product-single__price product-single__price-product-template">
                             <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
@@ -84,35 +87,32 @@
                     <div class="spr-container">
                         <div class="spr-header clearfix">
                             <div class="spr-summary">
-                                <span class="product-review"><a class="reviewLink"><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star-o"></i><i class="font-13 fa fa-star-o"></i> </a><span class="spr-summary-actions-togglereviews">Based on 6 reviews</span></span>
+                                <span class="product-review">
+                                    <a class="reviewLink">
+                                       @include("components.product.avg-rating")
+                                    </a><span class="spr-summary-actions-togglereviews">Based on {{ $product->get_review_count() }} reviews</span></span>
                             </div>
                         </div>
                         <div class="spr-content">
                             <div class="spr-form clearfix">
-                                <form method="post" action="#" id="new-review-form" class="new-review-form">
+                                @auth
+                                @can("review-product")
+                                <form method="POST" action="{{ route("product.review") }}" id="new-review-form" class="new-review-form">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}" />
                                     <h3 class="spr-form-title">Write a review</h3>
-                                    <fieldset class="spr-form-contact">
-                                        <div class="spr-form-contact-name">
-                                          <label class="spr-form-label" for="review_author_10508262282">Name</label>
-                                          <input class="spr-form-input spr-form-input-text " id="review_author_10508262282" type="text" name="review[author]" value="" placeholder="Enter your name">
-                                        </div>
-                                        <div class="spr-form-contact-email">
-                                          <label class="spr-form-label" for="review_email_10508262282">Email</label>
-                                          <input class="spr-form-input spr-form-input-email " id="review_email_10508262282" type="email" name="review[email]" value="" placeholder="john.smith@example.com">
-                                        </div>
-                                    </fieldset>
                                     <fieldset class="spr-form-review">
                                       <div class="spr-form-review-rating">
                                         <label class="spr-form-label">Rating</label>
                                         <div class="spr-form-input spr-starrating">
-                                          <div class="product-review"><a class="reviewLink" href="#"><i class="fa fa-star-o"></i><i class="font-13 fa fa-star-o"></i><i class="font-13 fa fa-star-o"></i><i class="font-13 fa fa-star-o"></i><i class="font-13 fa fa-star-o"></i></a></div>
+                                            <div id="myRating"></div>
                                         </div>
                                       </div>
                                 
                                       <div class="spr-form-review-body">
                                         <label class="spr-form-label" for="review_body_10508262282">Review</label>
                                         <div class="spr-form-input">
-                                          <textarea class="spr-form-input spr-form-input-textarea " id="review_body_10508262282" data-product-id="10508262282" name="review[body]" rows="10" placeholder="Write your comments here"></textarea>
+                                          <textarea class="spr-form-input spr-form-input-textarea " id="review_body_10508262282" data-product-id="10508262282" name="comment" rows="10" placeholder="Write your comments here" required></textarea>
                                         </div>
                                       </div>
                                     </fieldset>
@@ -120,19 +120,30 @@
                                         <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
                                     </fieldset>
                                 </form>
+                                @endcan
+                                @endauth
+                                @cannot("review-product")
+                                    <p>You need to be logged in as Customer to review the product. Please <a href="/login">login</a>.
+                                @endcannot
                             </div>
-                            <div class="spr-reviews">
-                                <div class="spr-review">
-                                    <div class="spr-review-header">
-                                        <span class="product-review spr-starratings spr-review-header-starratings"><span class="reviewLink"><i class="fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i></span></span>
-                                        <h3 class="spr-review-header-title">Lorem ipsum dolor sit amet</h3>
-                                        <span class="spr-review-header-byline"><strong>dsacc</strong> on <strong>Apr 09, 2019</strong></span>
-                                    </div>
-                                    <div class="spr-review-content">
-                                        <p class="spr-review-content-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                    </div>
+                            @if($product->get_review_count() > 0)
+                                <div class="spr-reviews">
+                                    @foreach ($product->reviewed_by_users as $user)
+                                        <div class="spr-review">
+                                            <div class="spr-review-header">
+                                                @include("components.product.rating")
+                                                <h3 class="spr-review-header-title">{{ $user->name }}</h3>
+                                                <span class="spr-review-header-byline"><strong>posted</strong> on <strong>{{  $user->pivot->created_at->diffForHumans() }}</strong></span>
+                                            </div>
+                                            <div class="spr-review-content">
+                                                <p class="spr-review-content-body">{{ $user->pivot->comment }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            </div>
+                            @else
+                                <p>No reviews found!</p>
+                            @endif
                         </div>
                         </div>
                     </div>
@@ -151,24 +162,20 @@
             @foreach ($relatedProducts as $product)
             <div class="col-12 item">
                 <div class="product-image">
-                    <a href="{{ "/products" . $product->id }}">
+                    <a href="{{ "/products/" . $product->id }}">
                         <img class="lazyload" data-src="{{ $product->image }}" src="{{ $product->image }}" alt="{{ $product->title }}" title="product">
                     </a>
                 </div>
                 <div class="product-details text-center">
                     <div class="product-name" style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis">
-                        <a href="{{ "/products" . $product->id }}">{{ $product->title }}</a>
+                        <a href="{{ "/products/" . $product->id }}">{{ $product->title }}</a>
                     </div>
                     <div class="product-price">
                         <span class="price">${{ $product->price }}</span>
                     </div>
                     
                     <div class="product-review">
-                        <i class="font-13 fa fa-star"></i>
-                        <i class="font-13 fa fa-star"></i>
-                        <i class="font-13 fa fa-star"></i>
-                        <i class="font-13 fa fa-star-o"></i>
-                        <i class="font-13 fa fa-star-o"></i>
+                        @include("components.product.avg-rating")
                     </div>
                 </div>
                 <!-- End product details -->
@@ -185,4 +192,28 @@
 </div>
 <!--End Body Content-->
 </div>
+<script src="{{ asset("js/emotion-ratings.min.js")}}"></script>
+
+<script>
+    var emotionsArray = {
+        angry: "&#x1F620;",
+        disappointed: "&#x1F61E;",
+        meh: "&#x1F610;", 
+        happy: "&#x1F60A;",
+        smile: "&#x1F603;",
+        wink: "&#x1F609;",
+        laughing: "&#x1F606;",
+        inLove: "&#x1F60D;",
+        heart: "&#x2764;",
+        crying: "&#x1F622;",
+        star: "&#x2B50;",
+    };
+
+    var emotionsArray = ['angry','disappointed','meh', 'happy', 'inLove'];
+    $("#myRating").emotionsRating({
+        emotions: emotionsArray,
+        emotionSize: 20,
+        inputName: "rating"
+    });
+</script>
 </x-app-layout>

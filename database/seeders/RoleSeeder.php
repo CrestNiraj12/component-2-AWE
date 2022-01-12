@@ -16,7 +16,10 @@ class RoleSeeder extends Seeder
     {
         $customer = Role::create([
             'name' => 'Customer',
-            'slug' => 'customer'
+            'slug' => 'customer',
+            'permissions' => [
+                'review-product' => true,
+            ]
         ]);
 
         $admin = Role::create([
@@ -26,7 +29,9 @@ class RoleSeeder extends Seeder
                 'create-product' => true,
                 'update-product' => true,
                 'delete-product' => true,
-                'view-product' => true,
+                'create-product-category' => true,
+                'update-product-category' => true,
+                'delete-product-category' => true,
                 'access-dashboard' => true
             ]
         ]);

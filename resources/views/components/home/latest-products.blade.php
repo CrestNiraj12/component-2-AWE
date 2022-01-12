@@ -16,13 +16,9 @@
                 <h6>${{ $product->price }}</h6>
                 <p>{{ $product->description }}</p>
                 <ul class="stars">
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
-                  <li><i class="fa fa-star"></i></li>
+                  @include("components.product.avg-rating")
                 </ul>
-                <span>Reviews (24)</span>
+                <span>Reviews ({{ $product->get_review_count() }})</span>
               </div>
           </div>
         </div>
