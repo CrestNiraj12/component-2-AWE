@@ -1141,3 +1141,15 @@ footer .inner-content p a {
 .btn-link.active:focus {
     background-color: rgba(255, 255, 255, 0.35);
 }
+
+.product-tabs li {
+    display: inline-block;
+    font-size: medium;
+    padding: 30px 10px 10px 10px;
+    cursor: pointer;
+}
+
+.product-tabs li[class="active"] {
+    color: #f33f3f;
+    border-bottom: 1px solid #f33f3f;
+}

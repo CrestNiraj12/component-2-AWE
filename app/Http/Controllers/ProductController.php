@@ -17,7 +17,10 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::with("category")->find($id);
-        return view("pages.product", ['page_title' => 'Product', 'product' => $product]);
+        $relatedProducts = Product::whereHas("category", function ($q) use ($product) {
+            $q->where("id", $product->category->id);
+        })->take(10)->get();
+        return view("pages.product", ['page_title' => 'Product', 'product' => $product, 'relatedProducts' => $relatedProducts]);
     }
 
     public function store(Request $request)
