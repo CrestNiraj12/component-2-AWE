@@ -97,5 +97,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('review-product', function ($user) {
             return $user->hasAccess(['review-product']);
         });
+
+        Gate::define('buy-product', function ($user) {
+            return $user->hasAccess(['buy-product']);
+        });
     }
 }

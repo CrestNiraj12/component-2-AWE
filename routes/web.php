@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -34,38 +36,44 @@ Route::post('/product/review', [UserReviewsProductsController::class, "store"])-
 Route::post('/send-message', [ContactController::class, "message"])->name("send-message");
 
 
-Route::middleware(['auth:sanctum', 'verified'])->prefix("admin")->group(function () {
-    Route::get('/contacts', [ContactController::class, "index"])->name("contacts")->middleware('can:view-contacts');
-    Route::get('/contacts/{id}', [ContactController::class, "show"])->name("contacts.show")->middleware('can:view-contacts');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get("/cart", [CartController::class, "index"])->name("cart")->middleware('can:buy-product');
+    Route::get("/checkout", [CheckoutController::class, "index"])->name("checkout")->middleware('can:buy-product');
+    Route::post("/payment", [PaymentController::class, "store"])->name("payment")->middleware('can:buy-product');
 
-    Route::get('dashboard', [DashboardController::class, "index"])->name('dashboard')->middleware('can:access-dashboard');
-    //TEST
-    Route::view('buttons', "admin.buttons");
+    Route::prefix("admin")->group(function() {
+        Route::get('contacts', [ContactController::class, "index"])->name("contacts")->middleware('can:view-contacts');
+        Route::get('contacts/{id}', [ContactController::class, "show"])->name("contacts.show")->middleware('can:view-contacts');
 
-    Route::prefix("products")->group(function () {
-        Route::prefix("categories")->group(function () {
-            Route::get('/', [ProductCategoryController::class, 'index'])->name('productCategory');
-            Route::get('add', [ProductCategoryController::class, 'showAddForm'])->name('productCategories.storePage')->middleware('can:create-product-category');
-            Route::post('/', [ProductCategoryController::class, 'store'])->name('productCategories.store')->middleware('can:create-product-category');
-            Route::put('{id}', [ProductCategoryController::class, 'update'])->name('productCategories.update')->middleware('can:update-product-category');
-            Route::get('edit/{id}', [ProductCategoryController::class, 'showEditForm'])->name('productCategories.updatePage')->middleware('can:update-product-category');
-            Route::delete('{id}', [ProductCategoryController::class, 'destroy'])->name('productCategories.destroy')->middleware('can:delete-product-category');
+        Route::get('dashboard', [DashboardController::class, "index"])->name('dashboard')->middleware('can:access-dashboard');
+        //TEST
+        Route::view('buttons', "admin.buttons");
+
+        Route::prefix("products")->group(function () {
+            Route::prefix("categories")->group(function () {
+                Route::get('/', [ProductCategoryController::class, 'index'])->name('productCategory');
+                Route::get('add', [ProductCategoryController::class, 'showAddForm'])->name('productCategories.storePage')->middleware('can:create-product-category');
+                Route::post('/', [ProductCategoryController::class, 'store'])->name('productCategories.store')->middleware('can:create-product-category');
+                Route::put('{id}', [ProductCategoryController::class, 'update'])->name('productCategories.update')->middleware('can:update-product-category');
+                Route::get('edit/{id}', [ProductCategoryController::class, 'showEditForm'])->name('productCategories.updatePage')->middleware('can:update-product-category');
+                Route::delete('{id}', [ProductCategoryController::class, 'destroy'])->name('productCategories.destroy')->middleware('can:delete-product-category');
+            });
+            Route::get('/', [ProductController::class, 'index'])->name("products");
+            Route::get('add', [ProductController::class, 'showAddForm'])->name('products.storePage')->middleware('can:create-product');
+            Route::post('/', [ProductController::class, 'store'])->name('products.store')->middleware('can:create-product');
+            Route::put('{product}', [ProductController::class, 'update'])->name('products.update')->middleware('can:update-product,product');
+            Route::get('edit/{product}', [ProductController::class, 'showEditForm'])->name('products.updatePage')->middleware('can:update-product,product');
+            Route::delete('{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('can:delete-product,product');
         });
-        Route::get('/', [ProductController::class, 'index'])->name("products");
-        Route::get('add', [ProductController::class, 'showAddForm'])->name('products.storePage')->middleware('can:create-product');
-        Route::post('/', [ProductController::class, 'store'])->name('products.store')->middleware('can:create-product');
-        Route::put('{product}', [ProductController::class, 'update'])->name('products.update')->middleware('can:update-product,product');
-        Route::get('edit/{product}', [ProductController::class, 'showEditForm'])->name('products.updatePage')->middleware('can:update-product,product');
-        Route::delete('{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('can:delete-product,product');
-    });
 
-    Route::prefix("users")->group(function () {
-        Route::get('/', [UserControlController::class, 'index']);
-        Route::get('{user}', [UserControlController::class, 'show'])->name('users.show')->middleware('can:view-user');
-        Route::get('add', [UserControlController::class, 'showAddPage'])->name('users.storePage')->middleware('can:create-user');
-        Route::post('/', [UserControlController::class, 'store'])->name('users.store')->middleware('can:create-user');
-        Route::put('{user}', [UserControlController::class, 'update'])->name('users.update')->middleware('can:update-user');
-        Route::post('{user}/edit', [UserControlController::class, 'showEditPage'])->name('users.updatePage')->middleware('can:update-user');
-        Route::delete('{user}', [UserControlController::class, 'destroy'])->name('users.destroy')->middleware('can:delete-user');
+        Route::prefix("users")->group(function () {
+            Route::get('/', [UserControlController::class, 'index']);
+            Route::get('{user}', [UserControlController::class, 'show'])->name('users.show')->middleware('can:view-user');
+            Route::get('add', [UserControlController::class, 'showAddPage'])->name('users.storePage')->middleware('can:create-user');
+            Route::post('/', [UserControlController::class, 'store'])->name('users.store')->middleware('can:create-user');
+            Route::put('{user}', [UserControlController::class, 'update'])->name('users.update')->middleware('can:update-user');
+            Route::post('{user}/edit', [UserControlController::class, 'showEditPage'])->name('users.updatePage')->middleware('can:update-user');
+            Route::delete('{user}', [UserControlController::class, 'destroy'])->name('users.destroy')->middleware('can:delete-user');
+        });
     });
 });

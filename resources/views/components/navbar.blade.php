@@ -30,9 +30,14 @@
             @endguest
             @auth
                 @can("access-dashboard")
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard">Dashboard</a>
-                    </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+                  </li>
+                @endcan
+                @can("buy-product")
+                  <li class="nav-item">
+                      <a class="nav-link" href="/cart">Cart</a>
+                  </li>
                 @endcan
                 <li class="nav-item">
                   <form method="POST" action="{{ route('logout') }}">

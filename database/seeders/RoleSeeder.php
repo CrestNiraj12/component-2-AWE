@@ -19,6 +19,7 @@ class RoleSeeder extends Seeder
             'slug' => 'customer',
             'permissions' => [
                 'review-product' => true,
+                'buy-product' => true
             ]
         ]);
 
