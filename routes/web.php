@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailChimpController;
@@ -30,8 +31,13 @@ Route::view('/contact', "pages.contact");
 Route::get('/products/{id}', [ProductController::class, "show"])->name("products.show");
 Route::post('/mailchimp/subscribe', [MailChimpController::class, "subscribe"])->name("mailchimp.subscribe");
 Route::post('/product/review', [UserReviewsProductsController::class, "store"])->name("product.review");
+Route::post('/send-message', [ContactController::class, "message"])->name("send-message");
+
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix("admin")->group(function () {
+    Route::get('/contacts', [ContactController::class, "index"])->name("contacts")->middleware('can:view-contacts');
+    Route::get('/contacts/{id}', [ContactController::class, "show"])->name("contacts.show")->middleware('can:view-contacts');
+
     Route::get('dashboard', [DashboardController::class, "index"])->name('dashboard')->middleware('can:access-dashboard');
     //TEST
     Route::view('buttons', "admin.buttons");

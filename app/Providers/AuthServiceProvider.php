@@ -38,6 +38,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-dashboard', function($user) {
             return $user->hasAccess(['access-dashboard']);
         });
+
+        Gate::define('view-contacts', function ($user) {
+            return $user->hasAccess(['view-contacts']);
+        });
     }
 
     public function registerProductCategoryPolicies()

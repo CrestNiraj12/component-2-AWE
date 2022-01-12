@@ -27,6 +27,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        @if (count($categories) > 0)
                         @foreach ($categories->items() as $category)
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3">
@@ -69,6 +70,8 @@
                             </td>
                         </tr>
                         @endforeach
+                        @else <tr><td colspan="3"><p class="p-5">No categories found!</p><td><tr>
+                        @endif
                     </tbody>
                 </table>
             </div>

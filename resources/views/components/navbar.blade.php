@@ -34,6 +34,17 @@
                         <a class="nav-link" href="/admin/dashboard">Dashboard</a>
                     </li>
                 @endcan
+                <li class="nav-item">
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <a class="nav-link" href="{{ route('logout') }}"
+                              onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </a>
+                </form>
+                </li>
             @endauth
           </ul>
         </div>

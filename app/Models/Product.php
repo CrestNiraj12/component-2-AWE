@@ -41,4 +41,8 @@ class Product extends Model
         $count = UserReviewsProducts::where("product_id", $this->id)->get()->count();
         return $count;
     }
+
+    public function carts() {
+        return $this->belongsToMany(Cart::class, "cart_has_products");
+    }
 }

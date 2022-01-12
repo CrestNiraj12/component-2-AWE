@@ -32,7 +32,8 @@ class RoleSeeder extends Seeder
                 'create-product-category' => true,
                 'update-product-category' => true,
                 'delete-product-category' => true,
-                'access-dashboard' => true
+                'access-dashboard' => true,
+                'view-contacts' => true
             ]
         ]);
     }

@@ -24,7 +24,7 @@
                     <div class="product-single__meta">
                         <h1>{{ $product->title }}</h1>
                         <div class="prInfoRow">
-                            <div class="product-stock"> @if ($product->units > 0) <span class="instock ">In Stock</span> @else <span class="outstock hide">Unavailable</span> @endif </div>
+                            <div class="product-stock"> @if ($product->units > 0) <span class="instock ">In Stock</span> @else <span class="outstock">Out of Stock</span> @endif </div>
                             <div class="product-review">
                                 <a class="reviewLink" href="#tab2">
                                     @include("components.product.avg-rating")
