@@ -22,12 +22,6 @@
               </div>
             </div>
             <div class="col-md-8">
-  <!-- How to change your own map point
-      1. Go to Google Maps
-      2. Click on your location point
-      3. Click "Share" and choose "Embed map" tab
-      4. Copy only URL and paste it within the src="" field below
-  -->
               <div id="map">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6294.793242141785!2d85.31601139680548!3d27.691550980218715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19b19295555f%3A0xabfe5f4b310f97de!2sThe%20British%20College%2C%20Kathmandu!5e0!3m2!1sen!2snp!4v1641938579834!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                             </div>

@@ -34,13 +34,20 @@ class PaymentController extends Controller
 
         $cart = Cart::where("user_id", auth()->user()->id)->first();
 
-        $payment = Payment::create(["user_id" => auth()->user()->id, "method" => "stripe", "amount" => $cart->getTotalAmount(), "status" => "PENDING"]);
+        $payment = Payment::create([
+            "user_id" => auth()->user()->id, 
+            "method" => "stripe", 
+            "amount" => $cart->getTotalAmount(), 
+            "status" => "PENDING"]);
         $details = CustomerBillingDetails::create($request->all() + ["payment_id" => $payment->id]);
         
         $products = [];
 
         foreach ($cart->products as $product) {
-            PaymentHasProducts::create(["payment_id" => $payment->id, "product_id" => $product->id, "quantity" => $product->pivot->quantity]);
+            PaymentHasProducts::create([
+                "payment_id" => $payment->id, 
+                "product_id" => $product->id, 
+                "quantity" => $product->pivot->quantity]);
             array_push($products, [
                 'price_data' => [
                     'currency' => 'usd',
