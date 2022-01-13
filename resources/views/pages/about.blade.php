@@ -58,17 +58,17 @@
                   <div class="hover-effect">
                     <div class="hover-content">
                       <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.facebook.com/crestniraz"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/crestniraj/"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#"><i class="fa fa-behance"></i></a></li>
                       </ul>
                     </div>
                   </div>
                 </div>
                 <div class="down-content">
-                  <h4>Johnny William</h4>
-                  <span>CO-Founder</span>
+                  <h4>Niraj Shrestha</h4>
+                  <span>Developer</span>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing itaque corporis nulla.</p>
                 </div>
               </div>
