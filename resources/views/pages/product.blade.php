@@ -55,7 +55,7 @@
                                         <div class="cart__qty text-center">
                                             <div class="qtyField" style="margin: 0px">
                                                 <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa fa-minus"></i></a>
-                                                <input style="width:30pxkp998787777" class="cart__qty-input qty" type="text" name="quantity" id="qty" value="1" pattern="[0-9]*">
+                                                <input style="width:30px" class="cart__qty-input qty" type="text" name="quantity" id="qty" value="1" pattern="[0-9]*">
                                                 <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa fa-plus"></i></a>
                                             </div>
                                         </div>
