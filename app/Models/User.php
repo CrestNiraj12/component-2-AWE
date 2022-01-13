@@ -85,6 +85,11 @@ class User extends Authenticatable
         return $this->roles()->where('slug', $roleSlug)->count() == 1;
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function reviewed_products() {
         return $this->belongsToMany(Product::class, "user_reviews_products");
     }

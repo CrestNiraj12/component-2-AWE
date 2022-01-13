@@ -46,6 +46,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('contacts/{id}', [ContactController::class, "show"])->name("contacts.show")->middleware('can:view-contacts');
 
         Route::get('dashboard', [DashboardController::class, "index"])->name('dashboard')->middleware('can:access-dashboard');
+        Route::get("/payment/{id}", [PaymentController::class, "show"])->name("payment.show")->middleware('can:access-dashboard');
 
         Route::prefix("products")->group(function () {
             Route::prefix("categories")->group(function () {

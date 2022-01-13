@@ -12,13 +12,6 @@ use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {
-    public function index() {
-        $payments = Payment::with("products")->whereHas("products.publisher", function ($q) {
-            $q->where("id", auth()->user()->id);
-        });
-        return view("admin.payments.payments", ["payments" => $payments]);
-    }
-
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             "first_name" => "required",
@@ -70,5 +63,10 @@ class PaymentController extends Controller
         ]);
 
         return redirect($session->url, 303, ["Location" => $session->url]);
+    }
+
+    public function show($id) {
+        $payment = Payment::with("products")->find($id);
+        return view("admin.payment.payment", ['payment' => $payment]);
     }
 }
