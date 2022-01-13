@@ -16,6 +16,7 @@
         "livewire/livewire": "^2.5",
         "mailchimp/marketing": "^3.0",
         "realrashid/sweet-alert": "^4.1",
+        "stripe/stripe-php": "^7.109",
         "yoeunes/toastr": "^1.2"
     },
     "require-dev": {

@@ -45,11 +45,25 @@
                     
                     <div class="display-table shareRow">
                             <div class="display-table-cell medium-up--one-third">
-                                <div class="wishlist-btn">
-                                    <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"><i class="icon anm anm-heart-l" aria-hidden="true"></i> <span>Add to Wishlist</span></a>
-                                </div>
+                                <form style="display: flex;
+                                width: 250px;
+                                align-items: flex-end;
+                                justify-content: space-between;" method="POST" action={{ route("add-to-cart") }}>
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                                    <div>
+                                        <div class="cart__qty text-center">
+                                            <div class="qtyField" style="margin: 0px">
+                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa fa-minus"></i></a>
+                                                <input class="cart__qty-input qty" type="text" name="quantity" id="qty" value="1" pattern="[0-9]*">
+                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa fa-plus"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn--small-wide checkout mt-3"><i class="fa fa-cart" aria-hidden="true"></i> <span>Add to Cart</span></button>
+                                </form>
                             </div>
-                            <div class="display-table-cell text-right">
+                            <div class="display-table-cell text-right mt-5">
                                 <div class="social-sharing">
                                     <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-facebook" title="Share on Facebook">
                                         <i class="fa fa-facebook-square" aria-hidden="true"></i> <span class="share-title" aria-hidden="true">Share</span>

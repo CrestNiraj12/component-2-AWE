@@ -35,8 +35,8 @@
                   </li>
                 @endcan
                 @can("buy-product")
-                  <li class="nav-item">
-                      <a class="nav-link" href="/cart">Cart</a>
+                  <li class="nav-item  {{ Request::is('cart') ? "active" : "" }}">
+                      <a class="nav-link" href="/cart">Cart <span id="productsCount" class="hide badge badge-danger"></span></a>
                   </li>
                 @endcan
                 <li class="nav-item">
@@ -55,3 +55,19 @@
         </div>
       </div>
     </nav>
+
+    <script>
+      $.ajax({
+          type: "GET",
+          url: "{{ route('cart-products-count') }}",
+          dataType: 'json',
+          success: function (data) {
+            if (data > 0) {
+              $("#productsCount").html(data).removeClass("hide");
+            }
+          },
+          error: function (err) {
+              console.error(err.responseJSON);
+          },
+      });
+    </script>

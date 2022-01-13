@@ -21,6 +21,10 @@ class Product extends Model
         "user_id"
     ];
 
+    public function publisher() {
+        return $this->belongsTo(User::class, "user_id");
+    }
+
     public function category() {
         return $this->belongsTo(ProductCategory::class, "product_category_id");
     }

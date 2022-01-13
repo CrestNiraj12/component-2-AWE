@@ -18,6 +18,15 @@ class Cart extends Model
     }
 
     public function products() {
-        return $this->belongsToMany(Product::class, "cart_has_products");
+        return $this->belongsToMany(Product::class, "cart_has_products")->withPivot('quantity');
+    }
+
+    public function getTotalAmount() {
+        $prices = $this->products()->pluck("price", "quantity");
+        $sum = 0;
+        foreach ($prices as $quantity => $price) {
+            $sum += $quantity * $price;
+        }
+        return $sum;
     }
 }

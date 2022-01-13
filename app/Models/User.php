@@ -88,4 +88,14 @@ class User extends Authenticatable
     public function reviewed_products() {
         return $this->belongsToMany(Product::class, "user_reviews_products");
     }
+
+    public function getFirstName() {
+        $names = explode(' ', $this->name);
+        return $names[0];
+    }
+
+    public function getLastName() {
+        $names = explode(' ', $this->name);
+        return $names[1];
+    }
 }

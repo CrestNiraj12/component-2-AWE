@@ -25,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         PaginationPaginator::useTailwind();
+        \Stripe\Stripe::setApiKey(env("STRIPE_SECRET"));
     }
 }

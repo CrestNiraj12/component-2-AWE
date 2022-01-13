@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class ProductsController extends Controller
 {
     public function index() {
-        $products = Product::with("category")->orderBy("title")->paginate(9);
+        $products = Product::with("category", "reviewed_by_users")->orderBy("title")->paginate(9);
         $productCategories = ProductCategory::all();
         return view("pages.products", ["paginator" => $products, "categories" => $productCategories]);
     }
 
     public function searchProducts(Request $request) {
-        $products = Product::with("category")->where("title", "like", "%". $request->search_query ."%");
+        $products = Product::with("category", "reviewed_by_users")->where("title", "like", "%". $request->search_query ."%");
         if ($request->cat != "All")
             $products = $products->whereHas("category", function ($q) use ($request) {
                 $q->where("title", $request->cat);

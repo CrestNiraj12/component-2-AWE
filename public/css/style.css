@@ -792,7 +792,7 @@ table { margin-bottom:15px; width:100%; border-collapse:collapse; border-spacing
 .wrapQtyBtn { float:left; }
 .qtyField { display:table; margin:0 auto; }
 .qtyField .qty { width:40px; }
-.qtyField .qtyBtn, .qtyField .qty { padding:10px 6px; width:30px; height:42px; border-radius:0; float:left; }
+.qtyField .qtyBtn, .qtyField .qty { padding:10px 6px; width:20px; height:42px; border-radius:0; float:left; }
 .qtyField a { background-color:#eee; color:#000; }
 .qtyField a .fa { font-size:12px; line-height:21px; }
 .qtyField > a, .qtyField > span, .qtyField input { display:table-cell; line-height:normal; text-align:center; padding:3px 6px; border:1px solid #f5f5f5; }
